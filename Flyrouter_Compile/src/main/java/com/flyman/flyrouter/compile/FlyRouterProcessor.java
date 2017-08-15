@@ -28,7 +28,8 @@ import com.squareup.javapoet.TypeSpec;
 @AutoService(Processor.class)
 public class FlyRouterProcessor extends AbstractProcessor {
     private final String TAG = "";
-
+    private final String PACKAGE_NAME="com.flyman.flyrouter";
+    private final String ROUTER_PACKAGE_NAME = PACKAGE_NAME + ".router";
 
     private static final boolean DEBUG = true;
     private Messager messager;
@@ -100,7 +101,7 @@ public class FlyRouterProcessor extends AbstractProcessor {
                 .addMethod(initMethod.build())
                 .build();
         try {
-            JavaFile.builder("com.github.mzule.activityrouter.router", routerInit)
+            JavaFile.builder(ROUTER_PACKAGE_NAME, routerInit)
                     .build()
                     .writeTo(filer);
         } catch (Exception e) {
@@ -119,7 +120,7 @@ public class FlyRouterProcessor extends AbstractProcessor {
                 .addMethod(initMethod.build())
                 .build();
         try {
-            JavaFile.builder("com.github.mzule.activityrouter.router", routerInit)
+            JavaFile.builder(ROUTER_PACKAGE_NAME, routerInit)
                     .build()
                     .writeTo(filer);
         } catch (Exception e) {
@@ -133,7 +134,7 @@ public class FlyRouterProcessor extends AbstractProcessor {
         MethodSpec.Builder mapMethod = MethodSpec.methodBuilder("map")
                 .addModifiers(Modifier.PUBLIC, Modifier.FINAL, Modifier.STATIC)
                 .addStatement("java.util.Map<String,String> transfer = null")
-                .addStatement("com.github.mzule.activityrouter.router.ExtraTypes extraTypes")
+//                .addStatement("com.github.mzule.activityrouter.router.ExtraTypes extraTypes")
                 .addCode("\n");
 
         for (Element element : elements) {
@@ -203,7 +204,7 @@ public class FlyRouterProcessor extends AbstractProcessor {
                 .addMethod(mapMethod.build())
                 .build();
         try {
-            JavaFile.builder("com.github.mzule.activityrouter.router", routerMapping)
+            JavaFile.builder(PACKAGE_NAME, routerMapping)
                     .build()
                     .writeTo(filer);
         } catch (Throwable e) {
